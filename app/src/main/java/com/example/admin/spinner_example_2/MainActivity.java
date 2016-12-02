@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     private static final String TAG = "Spinner";
 
+    AnnaView annaView;
+
     Spinner spinner;
     MyAdapter adapter;
     private ArrayList<Model> models = new ArrayList<>();
@@ -29,15 +31,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
+        annaView = (AnnaView)findViewById(R.id.w_AnnaView);
         spinner = (Spinner)findViewById(R.id.spinner);
 
-        for (int i = 0; i < 30; i++) {
-//            Model nModel = new Model();
-//            nModel.result = "Item " + i;
-//            models.add(nModel);
-
+        for (int i = 1; i <= 100; i++) {
             models.add(new Model(R.drawable.ic_spinner,"Model " + i));
         }
 
@@ -49,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setOnItemSelectedListener(this);
     }
 
-
-
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         Object item = parent.getItemAtPosition(position);
@@ -58,6 +53,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         boolean status = models.get(position).state;
         models.get(position).state = !status;
         adapter.notifyDataSetChanged();
+        annaView.setPercent(position);
+        annaView.forceLayout();
     }
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
