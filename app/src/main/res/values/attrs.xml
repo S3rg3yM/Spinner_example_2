@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AnnaView">
+        <attr name="setColor" format="color" >
+            <!--<enum name="annaColor" value="@android:color/holo_orange_dark"/>-->
+        </attr>
+    </declare-styleable>
+</resources>

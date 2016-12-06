@@ -3,9 +3,13 @@ package com.example.admin.spinner_example_2;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.method.KeyListener;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,11 +31,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     MyAdapter adapter;
     private ArrayList<Model> models = new ArrayList<>();
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         annaView = (AnnaView)findViewById(R.id.w_AnnaView);
+
+        annaView.setFocusable(true);
+        annaView.requestFocus();
+
         spinner = (Spinner)findViewById(R.id.spinner);
 
         for (int i = 1; i <= 100; i++) {
@@ -44,6 +54,36 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         spinner.setAdapter(adapter);
         spinner.setSelection(0);
         spinner.setOnItemSelectedListener(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Log.d(TAG,"onKeyDown: " + keyCode);
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyLongPress(int keyCode, KeyEvent event) {
+        Log.d(TAG,"onKeyLongPress: " + keyCode);
+        return super.onKeyLongPress(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyUp(int keyCode, KeyEvent event) {
+        Log.d(TAG,"onKeyUp: " + keyCode);
+        return super.onKeyUp(keyCode, event);
+    }
+
+    @Override
+    public boolean onKeyMultiple(int keyCode, int repeatCount, KeyEvent event) {
+        Log.d(TAG,"onKeyMultiple: " + keyCode);
+        return super.onKeyMultiple(keyCode, repeatCount, event);
+    }
+
+    @Override
+    public boolean onKeyShortcut(int keyCode, KeyEvent event) {
+        Log.d(TAG,"onKeyShortcut: " + keyCode);
+        return super.onKeyShortcut(keyCode, event);
     }
 
     @Override

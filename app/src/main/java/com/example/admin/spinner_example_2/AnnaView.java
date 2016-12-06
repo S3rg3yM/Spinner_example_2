@@ -1,9 +1,11 @@
 package com.example.admin.spinner_example_2;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -26,13 +28,29 @@ public class AnnaView extends View {
 
     public AnnaView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context, attrs);
+
+//        p = new Paint();
+//
+//        p.setAntiAlias(true);
+//        p.setStrokeJoin(Paint.Join.ROUND);
+//        p.setStyle(Paint.Style.STROKE);
+//        this.setBackgroundColor(Color.YELLOW);
+
+    }
+
+    private void init(Context context, AttributeSet attrs) {
 
         p = new Paint();
 
         p.setAntiAlias(true);
         p.setStrokeJoin(Paint.Join.ROUND);
         p.setStyle(Paint.Style.STROKE);
-        this.setBackgroundColor(Color.YELLOW);
+
+        TypedArray a = context.getTheme().obtainStyledAttributes(
+                attrs,R.styleable.AnnaView,0,0);
+
+        p.setColor(a.getColor(R.styleable.AnnaView_setColor,0));
     }
 
     @Override
@@ -42,10 +60,10 @@ public class AnnaView extends View {
 
         int width = canvas.getWidth();
         int height = canvas.getHeight();
-//        Log.d(TAG,"CanvasWidth = " + width);
 
         canvas.drawARGB(80, 102, 204, 255);
-        p.setColor(Color.GREEN);
+
+//        p.setColor(Color.GREEN);
         p.setStrokeWidth(10);
         canvas.drawCircle(width/2, height/2, width*percent/200, p);
     }
@@ -80,7 +98,7 @@ public class AnnaView extends View {
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        boolean onKeyU = super.onKeyDown(keyCode, event);
+        boolean onKeyU = super.onKeyUp(keyCode, event);
         Log.d(TAG,"onKeyUp(int keyCode, KeyEvent event): " + onKeyU);
         return onKeyU;
     }
@@ -96,5 +114,15 @@ public class AnnaView extends View {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         Log.d(TAG, "onSizeChanged(int w, int h, int oldw, int oldh): ");
+    }
+
+    @Override
+    public void setFocusable(boolean focusable) {
+        super.setFocusable(focusable);
+    }
+
+    @Override
+    protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
     }
 }
